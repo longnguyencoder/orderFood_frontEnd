@@ -170,7 +170,7 @@ export default function EditDish({
                           const file = e.target.files?.[0]
                           if (file) {
                             setFile(file)
-                            field.onChange('http://localhost:3000/' + file.name)
+                            field.onChange('http://192.168.1.55:3000/' + file.name)
                           }
                         }}
                         className='hidden'

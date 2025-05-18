@@ -40,13 +40,19 @@ import { useAddDishMutation } from '@/queries/useDish'
 import { useUploadMediaMutation } from '@/queries/useMedia'
 import { toast } from '@/components/ui/use-toast'
 import revalidateApiRequest from '@/apiRequests/revalidate'
+import { useTranslations } from 'next-intl'
+import { useRouter } from '@/navigation'
+import { useCategoryListQuery } from '@/queries/useCategory'
 
 export default function AddDish() {
+  const t = useTranslations('Dishes')
+  const router = useRouter()
   const [file, setFile] = useState<File | null>(null)
   const [open, setOpen] = useState(false)
   const addDishMutation = useAddDishMutation()
   const uploadMediaMutation = useUploadMediaMutation()
   const imageInputRef = useRef<HTMLInputElement | null>(null)
+  const { data: categoriesData } = useCategoryListQuery()
   const form = useForm<CreateDishBodyType>({
     resolver: zodResolver(CreateDishBody),
     defaultValues: {
@@ -54,7 +60,8 @@ export default function AddDish() {
       description: '',
       price: 0,
       image: undefined,
-      status: DishStatus.Unavailable
+      status: DishStatus.Unavailable,
+      categoryId: 0
     }
   })
   const image = form.watch('image')
@@ -75,16 +82,20 @@ export default function AddDish() {
       let body = values
       if (file) {
         const formData = new FormData()
-        formData.append('file', file)
+        formData.append('file', file);
         const uploadImageResult = await uploadMediaMutation.mutateAsync(
           formData
-        )
-        const imageUrl = uploadImageResult.payload.data
+        );
+        console.log("uploadImageResult",uploadImageResult);
+
+        const imageUrl = uploadImageResult.payload.data;
+        console.log("imageUrl",imageUrl);
         body = {
           ...values,
           image: imageUrl
         }
       }
+      console.log("body",body)
       const result = await addDishMutation.mutateAsync(body)
       await revalidateApiRequest('dishes')
       toast({
@@ -92,6 +103,7 @@ export default function AddDish() {
       })
       reset()
       setOpen(false)
+      router.push('/manage/dishes')
     } catch (error) {
       handleErrorApi({
         error,
@@ -99,6 +111,8 @@ export default function AddDish() {
       })
     }
   }
+  console.log("previewAvatarFromFile",previewAvatarFromFile)
+  console.log("categoriesData",categoriesData)
   return (
     <Dialog
       onOpenChange={(value) => {
@@ -119,7 +133,7 @@ export default function AddDish() {
       </DialogTrigger>
       <DialogContent className='sm:max-w-[600px] max-h-screen overflow-auto'>
         <DialogHeader>
-          <DialogTitle>Thêm món ăn</DialogTitle>
+          <DialogTitle>{t('createTitle')}</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -152,7 +166,7 @@ export default function AddDish() {
                           const file = e.target.files?.[0]
                           if (file) {
                             setFile(file)
-                            field.onChange('http://localhost:3000/' + file.name)
+                            field.onChange('http://192.168.1.55:3000/' + file.name)
                           }
                         }}
                         className='hidden'
@@ -256,12 +270,44 @@ export default function AddDish() {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name='categoryId'
+                render={({ field }) => (
+                  <FormItem>
+                    <div className='grid grid-cols-4 items-center justify-items-start gap-4'>
+                      <Label htmlFor='categoryId'>Loại món ăn</Label>
+                      <div className='col-span-3 w-full space-y-2'>
+                        <Select
+                          onValueChange={(value) => field.onChange(parseInt(value))}
+                          defaultValue={field.value?.toString()}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder={t('selectCategory')} />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {categoriesData?.payload.data.map((category) => (
+                              <SelectItem key={category.id} value={category.id.toString()}>
+                                {category.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
             </div>
           </form>
         </Form>
         <DialogFooter>
           <Button type='submit' form='add-dish-form'>
-            Thêm
+            {addDishMutation.isPending ? t('creating') : t('create')}
           </Button>
         </DialogFooter>
       </DialogContent>

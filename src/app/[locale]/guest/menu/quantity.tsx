@@ -22,7 +22,7 @@ export default function Quantity({
         type='text'
         inputMode='numeric'
         pattern='[0-9]*'
-        className='h-6 p-1 w-8 text-center'
+        className='h-6 p-1 w-8 text-center text-black'
         value={value}
         onChange={(e) => {
           let value = e.target.value
