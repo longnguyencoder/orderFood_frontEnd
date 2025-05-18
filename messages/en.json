@@ -42,7 +42,11 @@
   },
   "Dishes": {
     "title": "Dishes",
-    "description": "Manage dishes"
+    "description": "Manage dishes",
+    "createTitle": "Add Dish",
+    "selectCategory": "Select Category",
+    "creating": "Creating...",
+    "create": "Create"
   },
   "Orders": {
     "title": "Orders",
@@ -73,5 +77,27 @@
       "logoutCancel": "Cancel",
       "logoutConfirm": "Signing out may result in loss of your orders"
     }
+  },
+  "Categories": {
+    "title": "Categories",
+    "create": "Create Category",
+    "editTitle": "Edit Category",
+    "createTitle": "Create Category",
+    "name": "Name",
+    "description": "Description",
+    "image": "Image",
+    "cancel": "Cancel",
+    "update": "Update",
+    "createSuccess": "Category created successfully",
+    "createError": "Failed to create category",
+    "updateSuccess": "Category updated successfully",
+    "updateError": "Failed to update category",
+    "deleteSuccess": "Category deleted successfully",
+    "deleteError": "Failed to delete category",
+    "uploadError": "Failed to upload image",
+    "uploadSuccess": "Image uploaded successfully",
+    "imageSizeError": "Image size must be less than 5MB",
+    "imageTypeError": "Please upload a valid image file",
+    "imageRequired": "Image is required"
   }
 }

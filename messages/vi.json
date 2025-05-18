@@ -42,7 +42,11 @@
   },
   "Dishes": {
     "title": "Món ăn",
-    "description": "Quản lý món ăn"
+    "description": "Quản lý món ăn",
+    "createTitle": "Thêm món ăn",
+    "selectCategory": "Chọn loại món",
+    "creating": "Đang tạo...",
+    "create": "Tạo"
   },
   "Orders": {
     "title": "Đơn hàng",
@@ -71,7 +75,29 @@
     "logoutDialog": {
       "logoutQuestion": "Bạn có chắc chắn muốn đăng xuất?",
       "logoutCancel": "Hủy",
-      "logoutConfirm": "Đăng xuất có thể dẫn đến mất dữ liệu đơn hàng của bạn"
+      "logoutConfirm": "Đăng xuất có thể dẫn đến mất đơn hàng của bạn"
     }
+  },
+  "Categories": {
+    "title": "Danh mục",
+    "create": "Tạo danh mục",
+    "editTitle": "Chỉnh sửa danh mục",
+    "createTitle": "Tạo danh mục",
+    "name": "Tên",
+    "description": "Mô tả",
+    "image": "Hình ảnh",
+    "cancel": "Hủy",
+    "update": "Cập nhật",
+    "createSuccess": "Tạo danh mục thành công",
+    "createError": "Không thể tạo danh mục",
+    "updateSuccess": "Cập nhật danh mục thành công",
+    "updateError": "Không thể cập nhật danh mục",
+    "deleteSuccess": "Xóa danh mục thành công",
+    "deleteError": "Không thể xóa danh mục",
+    "uploadError": "Không thể tải lên hình ảnh",
+    "uploadSuccess": "Tải lên hình ảnh thành công",
+    "imageSizeError": "Kích thước hình ảnh phải nhỏ hơn 5MB",
+    "imageTypeError": "Vui lòng tải lên file hình ảnh hợp lệ",
+    "imageRequired": "Hình ảnh là bắt buộc"
   }
 }
