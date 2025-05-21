@@ -9,6 +9,7 @@ const DishSnapshotSchema = z.object({
   price: z.number(),
   image: z.string(),
   description: z.string(),
+  categoryId: z.number(),
   status: z.enum(DishStatusValues),
   dishId: z.number().nullable(),
   createdAt: z.date(),
