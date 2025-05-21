@@ -11,6 +11,11 @@ const nextConfig = {
         pathname: "/**",
       },
       {
+        protocol: "https",
+        hostname: "restaurant.zapto.org",
+        pathname: "/**",
+      },
+      {
         protocol: "http",
         hostname: "restaurant.zapto.org",
         pathname: "/**",
